@@ -35,6 +35,7 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
     public phone: any;
     public blokirator: any;
     public ondelete: boolean;
+    public block: boolean;
     public login: any;
     public gridState: State = {
         sort: [],
@@ -44,6 +45,7 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
 
     constructor(private userService: UserService) {
     }
+
     async ngOnInit() {
         this.view = this.userService.pipe(map(
             data => process(data, this.gridState)));
@@ -122,6 +124,19 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
         this.opened = false;
         this.openChange = false;
         this.delete = false;
+    }
+
+    public blockUser(event, user) {
+        console.log(event, user);
+        for (const i of this.view['destination']._value) {
+            if (i.FIO === user.FIO) {
+                if (i.USER_LOCK === 0) {
+                    i.USER_LOCK = 1;
+                } else {
+                    i.USER_LOCK = 0;
+                }
+            }
+        }
     }
 
     public disabledCange() {
@@ -226,9 +241,9 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
             default:
                 return {};
         }
-    }
+    };
 
     ngOnDestroy(): void {
-        this.unSubGetListUsers.unsubscribe()
+        this.unSubGetListUsers.unsubscribe();
     }
 }

@@ -24,7 +24,8 @@
                         <p>Введите ФИО пользователя</p>
                         <!--                        <input kendoTextBox style="width: 620px" [(ngModel)]="personTEL"-->
                         <!--                               [placeholder]="'+7 (000) 000-00-00'"/>-->
-                        <kendo-maskedtextbox style="width: 620px" [(ngModel)]="personTEL" [mask]="'+7 (000) 000-0000'"></kendo-maskedtextbox>
+                        <kendo-maskedtextbox style="width: 620px" [(ngModel)]="personTEL"
+                                             [mask]="'+7 (000) 000-0000'"></kendo-maskedtextbox>
                         <!--                        [mask]="'+7 (000) 000-0000'"-->
                         <p>Введите телефон</p>
                         <div class="section">
@@ -57,25 +58,25 @@
                         </button>
                     </kendo-dialog-actions>
                 </kendo-dialog>
-<!--                <div class="example-wrapper" style="object-position: center">-->
-<!--                    <div class="k-overlay" *ngIf="openChange"></div>-->
-<!--                    <kendo-window *ngIf="openChange"-->
-<!--                                  [(top)]="windowTop" [(left)]="windowLeft"-->
-<!--                                  [width]="650"-->
-<!--                                  [height]="260"-->
-<!--                                  [resizable]="false"-->
-<!--                                  [draggable]="true"-->
-<!--                                  [keepContent]="true"-->
-<!--                                  [accessKey]="">-->
-<!--                        <kendo-window-titlebar>-->
-<!--                            <div class='k-window-title'>Редактировать</div>-->
-<!--                            &lt;!&ndash;                            <button kendoWindowMaximizeAction></button>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <button kendoWindowRestoreAction></button>&ndash;&gt;-->
-<!--                            <button kendoWindowCloseAction (click)="close('no')"></button>-->
-<!--                        </kendo-window-titlebar>-->
+                <!--                <div class="example-wrapper" style="object-position: center">-->
+                <!--                    <div class="k-overlay" *ngIf="openChange"></div>-->
+                <!--                    <kendo-window *ngIf="openChange"-->
+                <!--                                  [(top)]="windowTop" [(left)]="windowLeft"-->
+                <!--                                  [width]="650"-->
+                <!--                                  [height]="260"-->
+                <!--                                  [resizable]="false"-->
+                <!--                                  [draggable]="true"-->
+                <!--                                  [keepContent]="true"-->
+                <!--                                  [accessKey]="">-->
+                <!--                        <kendo-window-titlebar>-->
+                <!--                            <div class='k-window-title'>Редактировать</div>-->
+                <!--                            &lt;!&ndash;                            <button kendoWindowMaximizeAction></button>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            <button kendoWindowRestoreAction></button>&ndash;&gt;-->
+                <!--                            <button kendoWindowCloseAction (click)="close('no')"></button>-->
+                <!--                        </kendo-window-titlebar>-->
 
-<!--                    </kendo-window>-->
-<!--                </div>-->
+                <!--                    </kendo-window>-->
+                <!--                </div>-->
 
             </ng-template>
             <kendo-grid-column field="LOGIN" title="Логин" width="200" [class]="{'codeColumn': true}">
@@ -88,16 +89,17 @@
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="ROLELIST_RU" title="Роли" width="350" [class]="{'codeColumn': true}">
-                                <ng-template kendoGridCellTemplate let-dataItem>
-                                    <span *ngIf="dataItem.ROLELIST_RU == 'Инспектор'"> Курьер</span>
-                                    <span *ngIf="dataItem.ROLELIST_RU == 'Инспектор,Руководитель'"> Курьер,Руководитель</span>
-                                    <span *ngIf="dataItem.ROLELIST_RU == 'Администратор,Инспектор,Руководитель'">Администратор, Курьер, Руководитель</span>
-                                    <span *ngIf="dataItem.ROLELIST_RU == 'Администратор,Руководитель'">Администратор, Руководитель</span>
-                                </ng-template>
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <span *ngIf="dataItem.ROLELIST_RU == 'Инспектор'"> Курьер</span>
+                    <span *ngIf="dataItem.ROLELIST_RU == 'Инспектор,Руководитель'"> Курьер,Руководитель</span>
+                    <span *ngIf="dataItem.ROLELIST_RU == 'Администратор,Инспектор,Руководитель'">Администратор, Курьер, Руководитель</span>
+                    <span *ngIf="dataItem.ROLELIST_RU == 'Администратор,Руководитель'">Администратор, Руководитель</span>
+                </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="USER_LOCK" title="Заблокирован" width="120" [class]="{'codeColumn': true}">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <input type="checkbox" [checked]="dataItem.USER_LOCK" disabled/>
+                    <input type="checkbox" [checked]="dataItem.USER_LOCK"
+                           (click)="blockUser($event.target.value, dataItem)"/>
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-command-column title="" width="143">
@@ -106,70 +108,6 @@
                             (click)="openedChange($event, dataItem)">
                         Редактировать
                     </button>
-
-<!--                    <kendo-dialog title="Редактировать" *ngIf="openChange" (close)="close('cancel')"-->
-<!--                                  [width]="668"-->
-<!--                                  [height]="445">-->
-<!--                        <kendo-dialog-actions>-->
-<!--                            <button kendoButton (click)="close('no')">Отмена</button>-->
-<!--                            <button kendoButton [toggleable]="true"-->
-<!--                                    (click)="close('yes')" (mousedown)="onChange($event)"-->
-<!--                                    primary="true">Сохранить-->
-<!--                            </button>-->
-<!--                        </kendo-dialog-actions>-->
-<!--                        <div class="example-wrapper">-->
-<!--                            <legend class="k-form-legend">{{fio}}</legend>-->
-<!--                            <span><br/></span>-->
-<!--                            <p>-->
-<!--                                <kendo-maskedtextbox style="width: 620px" [(ngModel)]="phone"></kendo-maskedtextbox>-->
-<!--                            </p>-->
-<!--                            &lt;!&ndash;                            [mask]="'+7 (000) 000-0000'"&ndash;&gt;-->
-<!--                            <p>Редактировать телефон</p>-->
-<!--                            <div class="container d-flex justify-content-between">-->
-<!--                                <kendo-card style="padding: 10px">-->
-<!--                                    <kendo-card-header class="k-hbox">-->
-<!--                                        <h1 kendoCardTitle>Редактирование роли</h1>-->
-<!--                                    </kendo-card-header>-->
-<!--                                    <div class="section">-->
-<!--                                        <div class="wrap">-->
-<!--                                            <input type="checkbox" kendoCheckBox [(ngModel)]="ins"/>-->
-<!--                                            <span> Инспектор</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="section">-->
-<!--                                        <div class="wrap">-->
-<!--                                            <span><br/></span>-->
-<!--                                            <input type="checkbox" kendoCheckBox [(ngModel)]="adm"/>-->
-<!--                                            <span> Администратор</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="section">-->
-<!--                                        <div class="wrap">-->
-<!--                                            <span><br/></span>-->
-<!--                                            <input type="checkbox" kendoCheckBox [(ngModel)]="man"/>-->
-<!--                                            <span> Руководитель</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </kendo-card>-->
-<!--                                <kendo-card style="padding: 10px">-->
-<!--                                    <div class="section">-->
-<!--                                        <div class="wrap">-->
-<!--                                            <span><br/></span>-->
-<!--                                            <input type="checkbox" kendoCheckBox [(ngModel)]="password"/>-->
-<!--                                            <span> Сбросить пароль</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="section">-->
-<!--                                        <div class="wrap">-->
-<!--                                            <span><br/></span>-->
-<!--                                            <input type="checkbox" kendoCheckBox [(ngModel)]="onblock"/>-->
-<!--                                            <span> Заблокирован</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </kendo-card>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </kendo-dialog>-->
                 </ng-template>
             </kendo-grid-command-column>
         </kendo-grid>
