@@ -25,23 +25,6 @@ class AdapterListDogTu(
         var view = convertView
         var viewHolderDogTu: ViewHolderDogTu = ViewHolderDogTu()
 
-        if (view == null) {
-            view = inflater.inflate(R.layout.lvitem_abon_dog_tu, parent, false)
-            viewHolderDogTu.name = view.findViewById(R.id.tvDogTuName) as TextView
-            viewHolderDogTu.name_tarif = view.findViewById(R.id.tvDogTuNameTarif) as TextView
-            viewHolderDogTu.soq = view.findViewById(R.id.tvDogTuSoq) as TextView
-            viewHolderDogTu.sog = view.findViewById(R.id.tvDogTuSog) as TextView
-            viewHolderDogTu.swq = view.findViewById(R.id.tvDogTuSvq) as TextView
-            viewHolderDogTu.swg = view.findViewById(R.id.tvDogTuSvg) as TextView
-            viewHolderDogTu.stq = view.findViewById(R.id.tvDogTuStq) as TextView
-            viewHolderDogTu.stg = view.findViewById(R.id.tvDogTuStg) as TextView
-            viewHolderDogTu.gwMax = view.findViewById(R.id.tvDogTuGvMax) as TextView
-            viewHolderDogTu.gwQsr = view.findViewById(R.id.tvDogTuGvQsr) as TextView
-
-            view.tag = viewHolderDogTu
-        } else {
-            viewHolderDogTu = view.tag as ViewHolderDogTu
-        }
         try {
             val item = getItem(position)
 

@@ -40,7 +40,6 @@ import kotlinx.android.synthetic.main.activity_new_task.*
 import kotlinx.android.synthetic.main.activity_task.*
 import kotlinx.android.synthetic.main.lvitem_task.*
 import kotlinx.coroutines.*
-import ru.infoenergo.mis.actsTemplates.*
 import ru.infoenergo.mis.adapters.AdapterImageGallery
 import ru.infoenergo.mis.adapters.AdapterListActsWithPhotos
 import ru.infoenergo.mis.dbhandler.*
@@ -66,8 +65,6 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     private var _idTask: Int = 0
     private var _idInspector: Int = 0
     private var _task: Task = Task()
-    private var dlgPaperAct: DlgAddPaperAct? = null
-    private var dlgCreateAct: DlgListCreateActs? = null
 
     // фотографии, прикрепленные к задаче
     private var _taskPhotos: ArrayList<FileInfo> = ArrayList()
@@ -1491,16 +1488,6 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                             .show()
                         return
                     }
-
-                    if (data.clipData != null) {
-                        act.uri = data.clipData!!.getItemAt(0).uri
-                        dlgPaperAct = DlgAddPaperAct(act)
-                        dlgPaperAct!!.show(supportFragmentManager, "PAPER_ACT")
-                    } else if (data.data != null) {
-                        act.uri = data.data!!
-                        dlgPaperAct = DlgAddPaperAct(act)
-                        dlgPaperAct!!.show(supportFragmentManager, "PAPER_ACT")
-                    }
                 }
             }
 
@@ -1827,14 +1814,14 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                     return true
                 }
 
-                try {
-                    dlgCreateAct = DlgListCreateActs(_acts, _task)
-                    dlgCreateAct!!.show(supportFragmentManager, "LIST_CREATE_ACT")
-
-                } catch (e: Exception) {
-                    println("$TAG_ERR task dialog acts: ${e.message}")
-                }
-                return true
+//                try {
+//                    dlgCreateAct = DlgListCreateActs(_acts, _task)
+//                    dlgCreateAct!!.show(supportFragmentManager, "LIST_CREATE_ACT")
+//
+//                } catch (e: Exception) {
+//                    println("$TAG_ERR task dialog acts: ${e.message}")
+//                }
+//                return true
             }
             // История посещений
             // -------------------------
@@ -2008,32 +1995,23 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         // Если был закончен вызов диалога добавления бумажного акта
         // ---------------------------------------------------------
         try {
-            dlgPaperAct?.apply {
-                if (this.onCancel) {
-                    insertPaperActToLocalDB(
-                        this.act.uri!!, this.act.is_signed,
-                        _actForAttach.id_act, _actForAttach.npp, _actForAttach.num_act
-                    )
-                    loadAttachments()
-                    dlgPaperAct = null
-                }
-            }
+
 
         } catch (e: Exception) {
             println("$TAG_ERR on cancel dlgPaperAct: ${e.message}")
         }
         // Если был закончен вызов диалога выбора нового\ редактирования акта
         // ------------------------------------------------------------------
-        try {
-            if (dlgCreateAct?.onCancel == true) {
-                val dlgCreateOrEditAct = DlgCreateOrEditAct(dlgCreateAct!!.ACT_LIST, dlgCreateAct!!.ACT, _task)
-                dlgCreateOrEditAct.show(supportFragmentManager, "CREATE_OR_EDIT_ACT")
-                if (lvActs.adapter != null)
-                    (lvActs.adapter as AdapterListActsWithPhotos).notifyDataSetChanged()
-                dlgCreateAct = null
-            }
-        } catch (e: Exception) {
-            println("$TAG_ERR on cancel dlgCreateAct: ${e.message}")
-        }
+//        try {
+//            if (dlgCreateAct?.onCancel == true) {
+//                val dlgCreateOrEditAct = DlgCreateOrEditAct(dlgCreateAct!!.ACT_LIST, dlgCreateAct!!.ACT, _task)
+//                dlgCreateOrEditAct.show(supportFragmentManager, "CREATE_OR_EDIT_ACT")
+//                if (lvActs.adapter != null)
+//                    (lvActs.adapter as AdapterListActsWithPhotos).notifyDataSetChanged()
+//                dlgCreateAct = null
+//            }
+//        } catch (e: Exception) {
+//            println("$TAG_ERR on cancel dlgCreateAct: ${e.message}")
+//        }
     }
 }

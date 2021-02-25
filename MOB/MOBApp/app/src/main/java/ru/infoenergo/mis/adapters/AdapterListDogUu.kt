@@ -24,17 +24,7 @@ class AdapterListDogUu(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView
         var viewHolderDogUu = ViewHolderDogUu()
-
-        if (view == null) {
-            view = inflater.inflate(R.layout.lvitem_abon_dog_uu, parent, false)
-            viewHolderDogUu.name = view.findViewById(R.id.tvDogUuName) as TextView
-            viewHolderDogUu.mestoUu = view.findViewById(R.id.tvDogUuMesto) as TextView
-            viewHolderDogUu.timeUu = view.findViewById(R.id.tvDogUuDate) as TextView
-
-            view.tag = viewHolderDogUu
-        } else {
-            viewHolderDogUu = view.tag as ViewHolderDogUu
-        }
+        
         try {
             val item = getItem(position)
 

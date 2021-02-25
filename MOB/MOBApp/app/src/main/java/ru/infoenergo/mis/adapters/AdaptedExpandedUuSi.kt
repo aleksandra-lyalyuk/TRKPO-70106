@@ -65,16 +65,6 @@ class AdaptedExpandedUuSi(
         var view = convertView
         var viewHolderDogUu = ViewHolderDogUu()
 
-        if (view == null) {
-            view = inflater.inflate(R.layout.lvitem_abon_dog_uu, parent, false)
-            viewHolderDogUu.name = view.findViewById(R.id.tvDogUuName) as TextView
-            viewHolderDogUu.mestoUu = view.findViewById(R.id.tvDogUuMesto) as TextView
-            viewHolderDogUu.timeUu = view.findViewById(R.id.tvDogUuDate) as TextView
-
-            view.tag = viewHolderDogUu
-        } else {
-            viewHolderDogUu = view.tag as ViewHolderDogUu
-        }
         try {
             val item = getGroup(groupPosition)
 
@@ -112,31 +102,6 @@ class AdaptedExpandedUuSi(
         var view = convertView
         var viewHolderDogUu = ViewHolderDogUuSi()
 
-        if (view == null) {
-            view = inflater.inflate(R.layout.lvitem_abon_dog_uu_si, parent, false)
-            viewHolderDogUu.npp = view.findViewById(R.id.tvDogUuSiNpp) as TextView
-            viewHolderDogUu.name_si = view.findViewById(R.id.tvDogUuSiName) as TextView
-            viewHolderDogUu.mesto = view.findViewById(R.id.tvDogUuSiMesto) as TextView
-            viewHolderDogUu.obozn_t = view.findViewById(R.id.tvDogUuSiObozn) as TextView
-            viewHolderDogUu.name_tip = view.findViewById(R.id.tvDogUuSiNameTip) as TextView
-            viewHolderDogUu.nomer = view.findViewById(R.id.tvDogUuSiNomer) as TextView
-            viewHolderDogUu.dim = view.findViewById(R.id.tvDogUuSiDim) as TextView
-            viewHolderDogUu.izm = view.findViewById(R.id.tvDogUuSiIzm) as TextView
-            viewHolderDogUu.data_pov = view.findViewById(R.id.tvDogUuSiDataPv) as TextView
-            viewHolderDogUu.int = view.findViewById(R.id.tvDogUuSiInt) as TextView
-            viewHolderDogUu.data_pov_end = view.findViewById(R.id.tvDogUuSiDataPovEnd) as TextView
-            viewHolderDogUu.per_chas_arx = view.findViewById(R.id.tvDogUuSiPerChasArx) as TextView
-            viewHolderDogUu.per_sut_arx = view.findViewById(R.id.tvDogUuSiPerSutArx) as TextView
-            viewHolderDogUu.n_greest = view.findViewById(R.id.tvDogUuSiNGreest) as TextView
-            viewHolderDogUu.work = view.findViewById(R.id.tvDogUuSiWork) as TextView
-            viewHolderDogUu.loss_press = view.findViewById(R.id.tvDogUuSiLossPress) as TextView
-            viewHolderDogUu.data_out = view.findViewById(R.id.tvDogUuSiDataOut) as TextView
-            viewHolderDogUu.prim = view.findViewById(R.id.tvDogUuSiPrim) as TextView
-
-            view.tag = viewHolderDogUu
-        } else {
-            viewHolderDogUu = view.tag as ViewHolderDogUuSi
-        }
         try {
 
             if (childPosition == 0)

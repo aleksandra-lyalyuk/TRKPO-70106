@@ -23,7 +23,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.tasks.Task
-import kotlinx.android.synthetic.main.dlg_confirm_act_sign.*
 import kotlinx.coroutines.*
 import ru.infoenergo.mis.dbhandler.DBHandlerServerWrite
 import ru.infoenergo.mis.dbhandler.DbHandlerLocalRead
@@ -77,44 +76,18 @@ class DlgConfirmationActSign(
         }
 
         val builder = AlertDialog.Builder(activity)
-        val inflater: LayoutInflater = activity!!.layoutInflater
-        val view: View = inflater.inflate(R.layout.dlg_confirm_act_sign, null)
+
         try {
             // слушатель на кнопку отмены
             // ----------------------------------
-            btnCancelConfirm = view.findViewById(R.id.btnCancelConfirm)
-            btnCancelConfirm.setOnClickListener {
-                confirm = false
-                dialog!!.cancel()
-            }
 
-            tvPhoneConfirm = view.findViewById(R.id.tvPhoneConfirm)
-            tvPhoneConfirm.setText(phone)
-            tvEmailConfirm = view.findViewById(R.id.tvEmailConfirm)
-            tvEmailConfirm.setText(email)
-            etCodeConfirm = view.findViewById(R.id.etCodeConfirm)
-            val chkBoxSendCodeToEmail: CheckBox = view.findViewById(R.id.chkBoxSendCodeToEmail)
 
             // слушатель на кнопку отправить код
             // ------------------------------------
-            btnSendCodeConfirm = view.findViewById(R.id.btnSendCodeConfirm)
+
             btnSendCodeConfirm.setOnClickListener {
                 code = Random.nextInt(0, 99999).toString().padStart(5, '0')
-                if (chkBoxSendCodeToEmail.isChecked) {
-                    uiScope.launch {
-                        if (sendConfirmationEmail()) {
-                            Toast.makeText(
-                                this@DlgConfirmationActSign.requireContext(),
-                                "Код отправлен на ${tvEmailConfirm.text}",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            btnSendCodeConfirm.isEnabled = false
-                            chkBoxSendCodeToEmail.isEnabled = false
-                            tvPhoneConfirm.isEnabled = false
-                            tvEmailConfirm.isEnabled = false
-                        }
-                    }
-                }
+
 
                 if (sendConfirmationSms()) {
                     Toast.makeText(
@@ -123,7 +96,6 @@ class DlgConfirmationActSign(
                         Toast.LENGTH_LONG
                     ).show()
                     btnSendCodeConfirm.isEnabled = false
-                    chkBoxSendCodeToEmail.isEnabled = false
                     tvPhoneConfirm.isEnabled = false
                     tvEmailConfirm.isEnabled = false
                 }

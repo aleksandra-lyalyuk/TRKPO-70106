@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.graphics.drawable.DrawableCompat
-import ru.infoenergo.mis.DlgFullSizeImage
 import ru.infoenergo.mis.R
 import ru.infoenergo.mis.TaskActivity
 import ru.infoenergo.mis.dbhandler.DbHandlerLocalRead
@@ -53,20 +52,6 @@ class AdapterListActsWithPhotos() : BaseAdapter(), View.OnCreateContextMenuListe
         var viewHolder = ActViewHolder()
         var view = convertView
 
-        if (convertView == null) {
-
-            view = inflater.inflate(R.layout.lvitem_task_acts_with_photo, parent, false)
-            viewHolder.icon = view.findViewById(R.id.imgTaskActIcon) as ImageView
-            viewHolder.name = view.findViewById(R.id.tvTaskActName) as TextView
-            viewHolder.signed = view.findViewById(R.id.chkBoxTaskActSigned) as CheckBox
-            viewHolder.paper = view.findViewById(R.id.chkBoxTaskActPaper) as CheckBox
-            viewHolder.attach = view.findViewById(R.id.btnShowActs) as Button
-
-            view.tag = viewHolder
-        } else {
-            viewHolder = convertView.tag as ActViewHolder
-        }
-
         val item = getItem(position)
 
         viewHolder.icon?.apply {
@@ -93,8 +78,6 @@ class AdapterListActsWithPhotos() : BaseAdapter(), View.OnCreateContextMenuListe
                 it.background = buttonDrawable
                 return@setOnClickListener
             }
-            val dlg = DlgFullSizeImage(photos)
-            dlg.show((context as TaskActivity).supportFragmentManager, "PHOTOS_ACT")
         }
 
         view?.setOnClickListener {

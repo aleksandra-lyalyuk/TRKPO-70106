@@ -24,15 +24,6 @@ class AdapterListDogObjects(
         var view = convertView
         var viewHolderDogObject: ViewHolderDogObject = ViewHolderDogObject()
 
-        if (view == null) {
-            view = inflater.inflate(R.layout.lvitem_abon_dog_objects, parent, false)
-            viewHolderDogObject.name = view.findViewById(R.id.tvDogObjName) as TextView
-            viewHolderDogObject.adr = view.findViewById(R.id.tvDogObjAdr) as TextView
-
-            view.tag = viewHolderDogObject
-        } else {
-            viewHolderDogObject = view.tag as ViewHolderDogObject
-        }
         try {
             val item = getItem(position)
 
