@@ -40,7 +40,7 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
     public gridState: State = {
         sort: [],
         skip: 0,
-        take: 25
+        take: 125
     };
 
     constructor(private userService: UserService) {
