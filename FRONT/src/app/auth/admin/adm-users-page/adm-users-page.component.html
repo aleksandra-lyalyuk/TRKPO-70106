@@ -85,7 +85,7 @@
             </kendo-grid-column>
             <kendo-grid-column field="TEL" title="Телефон" [class]="{'codeColumn': true}">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    {{dataItem.TEL | phone}}
+                    {{dataItem?.TEL | phone}}
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="ROLELIST_RU" title="Роли" width="350" [class]="{'codeColumn': true}">

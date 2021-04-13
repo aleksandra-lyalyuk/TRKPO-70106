@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdmUserEditDlgComponent } from './adm-user-edit-dlg.component';
+import {FormsModule} from '@angular/forms';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {UserService} from '../../../data/services/user.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('AdmUserEditDlgComponent', () => {
   let component: AdmUserEditDlgComponent;
@@ -8,7 +13,10 @@ describe('AdmUserEditDlgComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdmUserEditDlgComponent ]
+      imports: [FormsModule, HttpClientTestingModule, RouterTestingModule],
+      declarations: [ AdmUserEditDlgComponent ],
+      providers: [UserService],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

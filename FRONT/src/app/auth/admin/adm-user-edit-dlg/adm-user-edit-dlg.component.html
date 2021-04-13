@@ -15,12 +15,12 @@
         <div style="padding: 0.5rem">
             <kendo-label text="Ф.И.О:">
                 <br>
-                <kendo-label class="lb-fio">{{modelIn.FIO}}</kendo-label>
+                <kendo-label class="lb-fio">{{modelIn?.FIO}}</kendo-label>
             </kendo-label>
         </div>
         <div style="padding: 0.5rem 0.5rem 0.5rem 0.5rem;">
             <kendo-label text="Редактировать телефон">
-                <kendo-maskedtextbox  style="width: 100%" [(ngModel)]="modelOut.TEL"  [mask]="'+7 (000) 000-0000'" (valueChange)="onEdit($event)"></kendo-maskedtextbox>
+                <kendo-maskedtextbox  style="width: 100%" [(ngModel)]="modelOut.TEL"  [mask]="'+7 (000) 000-0000'" (valueChange)="onEdit($event)" ngDefaultControl></kendo-maskedtextbox>
             </kendo-label>
         </div>
         <div class="container d-flex justify-content-between" style="padding: 0.5rem">
@@ -53,7 +53,7 @@
                         <span><br/></span>
                         <span><br/></span>
                         <span><br/></span>
-                        <input type="checkbox" id="cb-clear-pass" kendoCheckBox [(ngModel)]="clear_pass" (change)="onEdit($event)" />
+                        <input type="checkbox" id="cb-clear-pass" kendoCheckBox [(ngModel)]="clear_pass" (change)="onEdit($event)"/>
                         <label class="k-checkbox-label" for="cb-clear-pass">Сбросить пароль</label>
 
                     </div>
