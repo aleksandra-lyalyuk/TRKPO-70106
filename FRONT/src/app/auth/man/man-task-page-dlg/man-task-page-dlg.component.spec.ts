@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ManTaskPageDlgComponent } from './man-task-page-dlg.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('ManTaskPageDlgComponent', () => {
   let component: ManTaskPageDlgComponent;
@@ -8,7 +12,9 @@ describe('ManTaskPageDlgComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManTaskPageDlgComponent ]
+      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
+      declarations: [ ManTaskPageDlgComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

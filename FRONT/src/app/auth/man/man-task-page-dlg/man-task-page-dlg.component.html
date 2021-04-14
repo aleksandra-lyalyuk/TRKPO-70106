@@ -30,7 +30,9 @@
                             [disabled]="adrYANULL"
                             (valueChange)="comboSaveChange($event)"
                             [textField]="'address'" [valueField]="'coord'"
-                            [data]="listItems" style="width: 715px">
+                            [data]="listItems" style="width: 715px"
+                            ngDefaultControl
+            >
             </kendo-combobox>
 <!--            <span *ngIf="selectedItem.address === null" style="color: #D9534F"> Введите адрес</span>-->
             <input kendoTextBox style="width: 715px"
@@ -41,7 +43,9 @@
                             (ngModelChange)="comboSaveClear()"
                             (valueChange)="comboSaveChange($event)"
                             [(ngModel)]="selectedStatus"
-                            [data]="listStatus" style="width: 715px">
+                            [data]="listStatus" style="width: 715px"
+                            ngDefaultControl
+            >
             </kendo-combobox>
             <kendo-combobox formControlName="comboChangeInsp"
                             [disabled]="readyTask"
@@ -50,7 +54,9 @@
                             (valueChange)="comboSaveChange($event)"
                             [(ngModel)]="selectedName"
                             [textField]="'FIO'" [valueField]="'ID'"
-                            [data]="listInsp" style="width: 715px">
+                            [data]="listInsp" style="width: 715px"
+                            ngDefaultControl
+            >
             </kendo-combobox>
             <span><br/></span>
             <kendo-datepicker
@@ -63,7 +69,9 @@
                     (valueChange)="comboSaveChange($event)"
                     [(ngModel)]="datePic"
                     [min]='min'
-                    [max]='max' style="width: 715px">
+                    [max]='max' style="width: 715px"
+                    ngDefaultControl
+            >
 
                 <kendo-datetimepicker-messages
                         today="Сегодня"
@@ -79,7 +87,9 @@
                         [placeholder]="'Введите время...'"
                         [(ngModel)]="timePic"
                         (ngModelChange)="comboSaveClear()"
-                        (valueChange)="comboSaveChange($event)" style="width: 715px">
+                        (valueChange)="comboSaveChange($event)" style="width: 715px"
+                        ngDefaultControl
+                >
 
                     <kendo-datetimepicker-messages
                             now="Сейчас"

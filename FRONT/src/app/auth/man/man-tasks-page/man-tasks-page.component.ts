@@ -51,7 +51,7 @@ interface IAdr {
 }
 
 
-declare var ymaps: any;
+// declare var ymaps: any;
 
 @Component({
     selector: 'app-man-tasks-page',
@@ -91,7 +91,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
     public timePic = new Date();
     public mainDatePic = new Date();
     public selectedStatus: any;
-    public yMaps: any = null;
+    // public yMaps: any = null;
     public listItems: Array<IAdr> = [];
     public selectedObjASUSE: IAsuse;
     public listStatus = ['не оплачен', 'оплачен'];
@@ -211,39 +211,39 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
                 data => process(data, this.gridState)));
         });
 
-        let yaMap;
-        this.viewListofTask.subscribe(res => {
-            if (yaMap === undefined && !this.mapIsInit) {
-                this.mapIsInit = true;
-                ymaps.ready().then(() => {
-                    yaMap = new ymaps.Map('map', {
-                        center: [55.784390, 49.120760],
-                        zoom: 15
-                    });
-                    yaMap.form = this;
-                    yaMap.events.add('contextmenu', function(e) {
-                        const coord = e.get('coords');
-                        ymaps.geocode(coord).then(function(res) {
-                            if (res.geoObjects.get(0) !== undefined) {
-                                const adr = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted;
-                                yaMap.form.showNewTasks(adr, coord);
-                            }
-                        });
-                    });
-                    this.createPlacemark(yaMap);
-                    this.onSelectUser.subscribe(mRoute => {
-                        yaMap.geoObjects.removeAll();
-                        if (mRoute === undefined) {
-                            this.createPlacemark(yaMap);
-                        } else {
-                            yaMap.geoObjects.add(new ymaps.multiRouter.MultiRoute(mRoute, {
-                                boundsAutoApply: true
-                            }));
-                        }
-                    });
-                });
-            }
-        });
+        // let yaMap;
+        // this.viewListofTask.subscribe(res => {
+        //     if (yaMap === undefined && !this.mapIsInit) {
+        //         this.mapIsInit = true;
+        //         ymaps.ready().then(() => {
+        //             yaMap = new ymaps.Map('map', {
+        //                 center: [55.784390, 49.120760],
+        //                 zoom: 15
+        //             });
+        //             yaMap.form = this;
+        //             yaMap.events.add('contextmenu', function(e) {
+        //                 const coord = e.get('coords');
+        //                 ymaps.geocode(coord).then(function(res) {
+        //                     if (res.geoObjects.get(0) !== undefined) {
+        //                         const adr = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted;
+        //                         yaMap.form.showNewTasks(adr, coord);
+        //                     }
+        //                 });
+        //             });
+        //             this.createPlacemark(yaMap);
+        //             this.onSelectUser.subscribe(mRoute => {
+        //                 yaMap.geoObjects.removeAll();
+        //                 if (mRoute === undefined) {
+        //                     this.createPlacemark(yaMap);
+        //                 } else {
+        //                     yaMap.geoObjects.add(new ymaps.multiRouter.MultiRoute(mRoute, {
+        //                         boundsAutoApply: true
+        //                     }));
+        //                 }
+        //             });
+        //         });
+        //     }
+        // });
     }
 
     public ngOnDestroy() {
@@ -282,16 +282,16 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
     }
 
     public async createPlacemark(yaMap) {
-        yaMap.geoObjects.removeAll();
-        const centrePlacemark = new ymaps.Placemark([55.784390, 49.120760], {balloonContent: 'Главный офис'}, {
-            iconColor: 'red'
-        });
-        yaMap.geoObjects.add(centrePlacemark);
-        for (const task of this.viewListofTask['destination']._value) {
-            await yaMap.geoObjects.add(new ymaps.Placemark([parseFloat(task.LAT), parseFloat(task.LAN)], {balloonContent: ''}, {
-                iconColor: '#0095b6'
-            }));
-        }
+        // yaMap.geoObjects.removeAll();
+        // const centrePlacemark = new ymaps.Placemark([55.784390, 49.120760], {balloonContent: 'Главный офис'}, {
+        //     iconColor: 'red'
+        // });
+        // yaMap.geoObjects.add(centrePlacemark);
+        // for (const task of this.viewListofTask['destination']._value) {
+        //     await yaMap.geoObjects.add(new ymaps.Placemark([parseFloat(task.LAT), parseFloat(task.LAN)], {balloonContent: ''}, {
+        //         iconColor: '#0095b6'
+        //     }));
+        // }
     }
 
     public indexClickHandler({sender, rowIndex, columnIndex, dataItem, isEdited}) {
@@ -464,53 +464,53 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
 
     public onkeydown(event) {
         this.ndFalse = false;
-        ymaps.geocode('Россия, Республика Татарстан, Казань,' + event.target.value)
-            .then((res) => {
-                this.listItems = [];
-                this.listItems.push({
-                    address: res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
-                    coord: {
-                        lat: res.geoObjects.get(0).geometry._coordinates[0],
-                        long: res.geoObjects.get(0).geometry._coordinates[1]
-                    }
-                });
-                if (res.geoObjects.get(1) !== undefined) {
-                    this.listItems.push({
-                        address: res.geoObjects.get(1).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
-                        coord: {
-                            lat: res.geoObjects.get(1).geometry._coordinates[0],
-                            long: res.geoObjects.get(1).geometry._coordinates[1]
-                        }
-                    });
-                    if (res.geoObjects.get(2) !== undefined) {
-                        this.listItems.push({
-                            address: res.geoObjects.get(2).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
-                            coord: {
-                                lat: res.geoObjects.get(2).geometry._coordinates[0],
-                                long: res.geoObjects.get(2).geometry._coordinates[1]
-                            }
-                        });
-                        if (res.geoObjects.get(3) !== undefined) {
-                            this.listItems.push({
-                                address: res.geoObjects.get(3).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
-                                coord: {
-                                    lat: res.geoObjects.get(3).geometry._coordinates[0],
-                                    long: res.geoObjects.get(3).geometry._coordinates[1]
-                                }
-                            });
-                            if (res.geoObjects.get(4) !== undefined) {
-                                this.listItems.push({
-                                    address: res.geoObjects.get(4).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
-                                    coord: {
-                                        lat: res.geoObjects.get(4).geometry._coordinates[0],
-                                        long: res.geoObjects.get(4).geometry._coordinates[1]
-                                    }
-                                });
-                            }
-                        }
-                    }
-                }
-            });
+        // ymaps.geocode('Россия, Республика Татарстан, Казань,' + event.target.value)
+        //     .then((res) => {
+        //         this.listItems = [];
+        //         this.listItems.push({
+        //             address: res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
+        //             coord: {
+        //                 lat: res.geoObjects.get(0).geometry._coordinates[0],
+        //                 long: res.geoObjects.get(0).geometry._coordinates[1]
+        //             }
+        //         });
+        //         if (res.geoObjects.get(1) !== undefined) {
+        //             this.listItems.push({
+        //                 address: res.geoObjects.get(1).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
+        //                 coord: {
+        //                     lat: res.geoObjects.get(1).geometry._coordinates[0],
+        //                     long: res.geoObjects.get(1).geometry._coordinates[1]
+        //                 }
+        //             });
+        //             if (res.geoObjects.get(2) !== undefined) {
+        //                 this.listItems.push({
+        //                     address: res.geoObjects.get(2).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
+        //                     coord: {
+        //                         lat: res.geoObjects.get(2).geometry._coordinates[0],
+        //                         long: res.geoObjects.get(2).geometry._coordinates[1]
+        //                     }
+        //                 });
+        //                 if (res.geoObjects.get(3) !== undefined) {
+        //                     this.listItems.push({
+        //                         address: res.geoObjects.get(3).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
+        //                         coord: {
+        //                             lat: res.geoObjects.get(3).geometry._coordinates[0],
+        //                             long: res.geoObjects.get(3).geometry._coordinates[1]
+        //                         }
+        //                     });
+        //                     if (res.geoObjects.get(4) !== undefined) {
+        //                         this.listItems.push({
+        //                             address: res.geoObjects.get(4).properties.get('metaDataProperty').GeocoderMetaData.Address.formatted,
+        //                             coord: {
+        //                                 lat: res.geoObjects.get(4).geometry._coordinates[0],
+        //                                 long: res.geoObjects.get(4).geometry._coordinates[1]
+        //                             }
+        //                         });
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
     }
 
     public async onNewTask(event) {
@@ -518,19 +518,19 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
         let nd = null;
         let city = null;
         const house = null;
-        await ymaps.geocode(this.selectedItem.address).then(res => {
-            for (let i = 0; i < res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components.length; i++) {
-                if (res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].kind === 'street') {
-                    street = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].name;
-                }
-                if (res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].kind === 'house') {
-                    nd = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].name;
-                }
-                if (res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].kind === 'locality') {
-                    city = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].name;
-                }
-            }
-        });
+        // await ymaps.geocode(this.selectedItem.address).then(res => {
+        //     for (let i = 0; i < res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components.length; i++) {
+        //         if (res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].kind === 'street') {
+        //             street = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].name;
+        //         }
+        //         if (res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].kind === 'house') {
+        //             nd = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].name;
+        //         }
+        //         if (res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].kind === 'locality') {
+        //             city = res.geoObjects.get(0).properties.get('metaDataProperty').GeocoderMetaData.Address.Components[i].name;
+        //         }
+        //     }
+        // });
         const adr = this.selectedItem.address;
         let purpose;
         if (this.selectedStatus === 'технический аудит') {
