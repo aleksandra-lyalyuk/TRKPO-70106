@@ -1,10 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from "@angular/core";
-import {FormGroup} from "@angular/forms";
-import {GridDataResult, RowClassArgs} from "@progress/kendo-angular-grid";
-import {Observable} from "rxjs";
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {UserService} from "../../../data/services/user.service";
-import {map, tap} from "rxjs/operators";
-import {process, State} from "@progress/kendo-data-query";
+import {tap} from "rxjs/operators";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 
@@ -22,14 +19,18 @@ export class AdmSelfPageComponent implements OnInit {
     public firstPass: any;
     public secondPass: any;
     public wrongPass = false;
-    public rightPass = false
-    public wronglenghtPass = false
+    public rightPass = false;
+    public wronglenghtPass = false;
     public oldPass: any;
-    public errorOldPass = false
-    public eqPass = false
+    public errorOldPass = false;
+    public eqPass = false;
     public login: any;
 
     constructor(private userService: UserService, private authService: AuthService, private router: Router) {
+    }
+
+    ngOnInit() {
+        this.getLoginAndRole();
     }
 
     public getLoginAndRole() {
@@ -38,14 +39,14 @@ export class AdmSelfPageComponent implements OnInit {
         this.login = localStorage.getItem('email')
 
         let rolesArr = []
-        for (let role of this.userService.authService.roles) {
-            if (role.ID_ROLETYPE == 'ins') {
-                rolesArr.push(" Курьер")
+        for (let role of this.authService.roles) {
+            if (role.ID_ROLETYPE === 'ins') {
+                rolesArr.push(' Курьер')
             }
-            if (role.ID_ROLETYPE == 'man') {
+            if (role.ID_ROLETYPE === 'man') {
                 rolesArr.push(" Руководитель")
             }
-            if (role.ID_ROLETYPE == 'adm') {
+            if (role.ID_ROLETYPE === 'adm') {
                 rolesArr.push(" Администратор")
             }
         }
@@ -62,7 +63,7 @@ export class AdmSelfPageComponent implements OnInit {
 
     async redirectLogin() {
         await this.sleep(3000)
-        await this.router.navigate(['/login'])
+        // await this.router.navigate(['/login'])
     }
 
     async onSaveNewPass(event) {
@@ -71,13 +72,12 @@ export class AdmSelfPageComponent implements OnInit {
 
             this.authService.saveNewPass(this.oldPass, this.firstPass).pipe(
                 tap(res => {
-                    res = res;
                     if (res['outBinds'].po_error == null) {
                         this.rightPass = true
                         this.redirectLogin().then(function (res) {
 
                         })
-                    } else if (res['outBinds'].po_error == 'Old pass eq New pass') {
+                    } else if (res['outBinds'].po_error === 'Old pass eq New pass') {
                         this.eqPass = true
                     } else {
                         this.errorOldPass = true
@@ -102,21 +102,6 @@ export class AdmSelfPageComponent implements OnInit {
         this.wronglenghtPass = false
         this.errorOldPass = false
         this.eqPass = false
-    }
-
-    ngOnInit() {
-        this.getLoginAndRole()
-    }
-
-    public rowCallback = (context: RowClassArgs) => {
-        switch (context.dataItem.lock) {
-            case true:
-                return {gold: true};
-            case false:
-                return {green: true};
-            default:
-                return {};
-        }
     }
 
 }

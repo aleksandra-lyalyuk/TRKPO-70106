@@ -7,19 +7,19 @@
                           style="width: 500px; position: absolute; top: 200px; right: 700px">
                     <legend class="k-form-legend">{{login}}</legend>
                     <p kendoCardSubtitle>{{role}}</p>
-                    <input kendoTextBox type="{{ typePassword ? 'any' : 'password' }}" required pattern="[a-zA-Z0-9]+" name="password"
+                    <input kendoTextBox type="{{ typePassword ? 'any' : 'password' }}" required pattern="[a-zA-Z0-9]+" name="oldPass"
                            [(ngModel)]="oldPass" (ngModelChange)="toched($event)"/>
                     <p kendoCardSubtitle>Введите текущий пароль</p>
                     <div>
                         <span *ngIf="errorOldPass == true" style="color: #D9534F">Неправильно введен текущий пароль</span>
                     </div>
-                    <input kendoTextBox type="{{ typePassword ? 'any' : 'password' }}" required pattern="[a-zA-Z0-9]+" name="password"
+                    <input kendoTextBox type="{{ typePassword ? 'any' : 'password' }}" required pattern="[a-zA-Z0-9]+" name="newPass"
                            [(ngModel)]="firstPass" (ngModelChange)="toched($event)"/>
                     <div>
                         <span *ngIf="eqPass == true" style="color: #D9534F">Текущий и новый пароли совпадают</span>
                     </div>
                     <p kendoCardSubtitle>Введите новый пароль (минимум 6 символов, только цифры)</p>
-                    <input kendoTextBox type="{{ typePassword ? 'any' : 'password' }}" required pattern="[a-zA-Z0-9]+" name="password"
+                    <input kendoTextBox type="{{ typePassword ? 'any' : 'password' }}" required pattern="[a-zA-Z0-9]+" name="newPassRepeat"
                            [(ngModel)]="secondPass" (ngModelChange)="toched($event)"/>
                     <p kendoCardSubtitle>Введите пароль еще раз (минимум 6 символов, только цифры)</p>
                     <div>
