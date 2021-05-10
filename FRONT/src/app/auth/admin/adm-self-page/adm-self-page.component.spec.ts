@@ -53,7 +53,6 @@ describe('AdmSelfPageComponent', () => {
 
         const oldPass = 'oldPass';
         const newPass = 'newPass';
-        const newPassRepeat = 'newPass';
 
         const inputEvent = new Event('input');
         const clickEvent = new Event('click');

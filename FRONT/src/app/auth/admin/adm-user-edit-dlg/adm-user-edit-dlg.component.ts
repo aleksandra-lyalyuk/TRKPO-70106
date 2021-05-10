@@ -44,12 +44,11 @@ export class AdmUserEditDlgComponent implements OnInit {
     clear_pass = false;
 
 
-    constructor(private userService: UserService) {
+    constructor(public userService: UserService) {
 
     }
 
     ngOnInit() {
-
     }
 
 
@@ -72,7 +71,7 @@ export class AdmUserEditDlgComponent implements OnInit {
         }
         let setRolesResult = null;
         if ((this.modelIn.ADM != this.modelOut.ADM) || (this.modelIn.MAN != this.modelOut.MAN) || (this.modelIn.INS != this.modelOut.INS)) {
-            setRolesResult = await this.setRoles();
+            setRolesResult = this.setRoles();
         }
         this.updateRow(setRolesResult);
     }
@@ -87,55 +86,25 @@ export class AdmUserEditDlgComponent implements OnInit {
         }
     }
 
-    setRoles(): Promise<any> {
-        let promise = new Promise((resolve, reject) => {
-            let rolesA = [];
-            let rolesruA = [];
-            if (this.modelOut.ADM) {
-                rolesA.push('adm');
-                rolesruA.push('Администратор');
-            }
-            if (this.modelOut.MAN) {
-                rolesA.push('man');
-                rolesruA.push('Руководитель');
-            }
-            if (this.modelOut.INS) {
-                rolesA.push('ins');
-                rolesruA.push('Курьер');
-            }
-            let roles = rolesA.join(',');
-            let roles_ru = rolesruA.join(',');
-            let res = this.userService._set_role(roles, this.EditItem.ID_USER).subscribe(result => {
-                resolve({ROLELIST: roles, ROLELIST_RU: roles_ru})
-            })
-        })
-        return promise;
+    setRoles() {
+        const rolesA = [];
+        const rolesruA = [];
+        if (this.modelOut.ADM) {
+            rolesA.push('adm');
+            rolesruA.push('Администратор');
+        }
+        if (this.modelOut.MAN) {
+            rolesA.push('man');
+            rolesruA.push('Руководитель');
+        }
+        if (this.modelOut.INS) {
+            rolesA.push('ins');
+            rolesruA.push('Курьер');
+        }
+        const roles = rolesA.join(',');
+        const roles_ru = rolesruA.join(',');
+        return {ROLELIST: roles, ROLELIST_RU: roles_ru};
     }
-
-    // async __setRoles() {
-    //     let rolesA = [];
-    //     let rolesruA = [];
-    //     if (this.modelOut.ADM) {
-    //         rolesA.push('adm');
-    //         rolesruA.push('Администратор');
-    //     }
-    //     if (this.modelOut.MAN) {
-    //         rolesA.push('man');
-    //         rolesruA.push('Руководитель');
-    //     }
-    //     if (this.modelOut.INS) {
-    //         rolesA.push('ins');
-    //         rolesruA.push('Инспектор');
-    //     }
-    //     let roles = rolesA.join(',');
-    //     let roles_ru = rolesruA.join(',');
-    //     let res = await this.userService._set_role(roles, this.EditItem.ID_USER).subscribe(result => {
-    //         if (result.result != true) {
-    //             console.log('result.result')
-    //         }
-    //     })
-    //     return {ROLELIST: roles, ROLELIST_RU: roles_ru};
-    // }
 
     async userLock() {
         await this.userService.userLock(this.modelOut.USER_LOCK ? 1 : 0, this.EditItem.ID_USER);
