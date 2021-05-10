@@ -20,7 +20,7 @@
         </div>
         <div style="padding: 0.5rem 0.5rem 0.5rem 0.5rem;">
             <kendo-label text="Редактировать телефон">
-                <kendo-maskedtextbox  style="width: 100%" [(ngModel)]="modelOut.TEL"  [mask]="'+7 (000) 000-0000'" (valueChange)="onEdit($event)" ngDefaultControl></kendo-maskedtextbox>
+                <input style="width: 100%" [(ngModel)]="modelOut.TEL" (ngModelChange)="onEdit($event)" id="tel"/>
             </kendo-label>
         </div>
         <div class="container d-flex justify-content-between" style="padding: 0.5rem">
@@ -72,6 +72,7 @@
             <button style="margin: 0.5rem" kendoButton (click)="close.emit('no')" [look]="'outline'">Отмена</button>
             <button style="margin: 0.5rem" kendoButton [toggleable]="false" [look]="'outline'" [disabled]=!canSave
                     (click)="onSaveClick()"
+                    id="submitBtn"
                     primary="true">Сохранить
             </button>
         </kendo-dialog-actions>
