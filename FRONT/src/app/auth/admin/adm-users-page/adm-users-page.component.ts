@@ -1,9 +1,7 @@
 import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {GridDataResult, RowClassArgs} from '@progress/kendo-angular-grid';
 import {UserService} from '../../../data/services/user.service';
-import {from, Observable, of, Subscription} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
-import {State, process, DataResult} from '@progress/kendo-data-query';
+import {State} from '@progress/kendo-data-query';
 
 
 @Component({
@@ -14,10 +12,8 @@ import {State, process, DataResult} from '@progress/kendo-data-query';
 })
 
 
-export class AdmUsersPageComponent implements OnInit, OnDestroy {
-    public windowTop = -80;
-    public windowLeft = 630;
-    public view: Observable<GridDataResult>;
+export class AdmUsersPageComponent implements OnInit {
+    public view: GridDataResult = {data: [], total: 0};
     public opened = false;
     public openChange = false;
     public onblock = false;
@@ -28,7 +24,6 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
     public personTEL: any;
     public ins: boolean;
     public adm: boolean;
-    public unSubGetListUsers: Subscription;
     public man: boolean;
     public delete = false;
     public fio: any;
@@ -47,12 +42,9 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit() {
-        this.view = this.userService.pipe(map(
-            data => process(data, this.gridState)));
-        this.unSubGetListUsers = await this.userService.fetch().subscribe(res => {
-            this.view['destination']._value = res;
-            this.view = this.userService.pipe(map(
-                data => process(data, this.gridState)));
+        this.userService.fetch().subscribe(res => {
+            this.view.data = res;
+            this.view['destination'] = res;
         });
     }
 
@@ -242,8 +234,4 @@ export class AdmUsersPageComponent implements OnInit, OnDestroy {
                 return {};
         }
     };
-
-    ngOnDestroy(): void {
-        this.unSubGetListUsers.unsubscribe();
-    }
 }

@@ -4,7 +4,7 @@
                            (close)="close($event)"
     ></app-adm-user-edit-dlg>
     <div class="d-flex align-items-start" style="height: 75vh; padding-top: 1px;">
-        <kendo-grid [data]="view | async" [rowClass]="rowCallback"
+        <kendo-grid [data]="view" [rowClass]="rowCallback"
                     style="height: 74.8vh; padding-left: 30px; padding-right: 25px; border-style: none">
             <ng-template kendoGridNoRecordsTemplate>
                 Нет пользователей.
@@ -58,26 +58,6 @@
                         </button>
                     </kendo-dialog-actions>
                 </kendo-dialog>
-                <!--                <div class="example-wrapper" style="object-position: center">-->
-                <!--                    <div class="k-overlay" *ngIf="openChange"></div>-->
-                <!--                    <kendo-window *ngIf="openChange"-->
-                <!--                                  [(top)]="windowTop" [(left)]="windowLeft"-->
-                <!--                                  [width]="650"-->
-                <!--                                  [height]="260"-->
-                <!--                                  [resizable]="false"-->
-                <!--                                  [draggable]="true"-->
-                <!--                                  [keepContent]="true"-->
-                <!--                                  [accessKey]="">-->
-                <!--                        <kendo-window-titlebar>-->
-                <!--                            <div class='k-window-title'>Редактировать</div>-->
-                <!--                            &lt;!&ndash;                            <button kendoWindowMaximizeAction></button>&ndash;&gt;-->
-                <!--                            &lt;!&ndash;                            <button kendoWindowRestoreAction></button>&ndash;&gt;-->
-                <!--                            <button kendoWindowCloseAction (click)="close('no')"></button>-->
-                <!--                        </kendo-window-titlebar>-->
-
-                <!--                    </kendo-window>-->
-                <!--                </div>-->
-
             </ng-template>
             <kendo-grid-column field="LOGIN" title="Логин" width="200" [class]="{'codeColumn': true}">
             </kendo-grid-column>
@@ -105,7 +85,8 @@
             <kendo-grid-command-column title="" width="143">
                 <ng-template kendoGridCellTemplate let-dataItem>
                     <button kendoGridEditCommand [primary]="true" *ngIf="!openChange"
-                            (click)="openedChange($event, dataItem)">
+                            (click)="openedChange($event, dataItem)"
+                            id="submitButton">
                         Редактировать
                     </button>
                 </ng-template>
