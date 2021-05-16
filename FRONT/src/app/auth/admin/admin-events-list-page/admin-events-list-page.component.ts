@@ -101,7 +101,7 @@ export class AdminEventsListPageComponent implements OnInit {
     //         }
     //     }
     // }
-    private tm = null;
+    public tm = null;
 
     public onFilter(event) {
         if (this.tm !== null) {
@@ -117,7 +117,7 @@ export class AdminEventsListPageComponent implements OnInit {
         // await setTimeout(() => {
         // }, 500);
         await this.userService.search_event(this.datePic.toLocaleDateString(), event.target.value).subscribe(res => {
-            this.view['destination']._value = res;
+            // this.view['destination']._value = res;
             this.view = this.userService.pipe(map(
                 data => process(data, this.gridState)));
         });
