@@ -10,12 +10,12 @@
                   state="">
         <kendo-window-titlebar>
             <div class='k-window-title'>Файлы по заданию</div>
-            <button kendoWindowCloseAction (click)="closeFiles('yes')"></button>
+            <button id="closeFilesButton" kendoWindowCloseAction (click)="closeFiles('yes')"></button>
         </kendo-window-titlebar>
         <kendo-card [width]="'815px'">
             <div class="section">
                 <div style="padding: 0.5rem">
-                                <input style="display: none" type="file" (change)="uploadFile($event.target.files)"
+                                <input id="uploadFile" style="display: none" type="file" (change)="uploadFile($event.target.files)"
                                        #hiddenfileinput>
 
                     <button style="color: #D9534F" (click)="hiddenfileinput.click()"
@@ -30,7 +30,7 @@
                     </button>
 
 
-                    <button style="color: #D9534F; float: right" (click)="signedActDlg()"
+                    <button id="signedActDlgButton" style="color: #D9534F; float: right" (click)="signedActDlg()"
                             class="waves-effect waves-light btn">
                         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-text"
                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +77,7 @@
             </kendo-grid-column>
             <kendo-grid-column width="40">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    <button kendoButton (click)="deleteFile(dataItem.id)" style="float: right">
+                    <button id="deleteFileButton" kendoButton (click)="deleteFile(dataItem.id)" style="float: right">
                         <svg color="#D9534F" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-trash"
                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -127,11 +127,11 @@
                   state="">
         <kendo-window-titlebar>
             <div class='k-window-title'>Прикрепить бумажный акт</div>
-            <button kendoWindowCloseAction (click)="closeSignedDlg('photo')"></button>
+            <button id="closeSignedDlgButton" kendoWindowCloseAction (click)="closeSignedDlg('photo')"></button>
         </kendo-window-titlebar>
         <br/>
         <br/>
-        <input style="display: none" type="file" (change)="uploadPaper($event.target.files)"
+        <input id="uploadPaper" style="display: none" type="file" (change)="uploadPaper($event.target.files)"
                #hiddenphotoinput>
         <button style="color: #818A91; float: right" (click)="hiddenphotoinput.click()"
                 class="waves-effect waves-light btn">
@@ -144,7 +144,7 @@
             </svg>
             <i class="material-icons left"></i> Прикрепить НЕподписанный акт (PDF/JPG/PNG)
         </button>
-        <input style="display: none" type="file" (change)="uploadPaperSigned($event.target.files)"
+        <input id="uploadPaperSigned" style="display: none" type="file" (change)="uploadPaperSigned($event.target.files)"
                #hiddenphotoinput2>
         <button style="color: #D9534F; float: right" (click)="hiddenphotoinput2.click()"
                 class="waves-effect waves-light btn">

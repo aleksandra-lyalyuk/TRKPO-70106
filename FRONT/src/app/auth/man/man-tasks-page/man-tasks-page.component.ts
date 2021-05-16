@@ -6,21 +6,7 @@ import {map, tap} from 'rxjs/operators';
 import {ManService} from '../../../data/services/man.service';
 import {Observable, Subscription} from 'rxjs';
 import {UserService} from '../../../data/services/user.service';
-
-class Point {
-    constructor(public lat: number, public long: number) {
-    }
-
-    public get feature() {
-        return [this.lat, this.long];
-    }
-
-    public get options() {
-        return {
-            draggable: true
-        };
-    }
-}
+import {Point} from './point';
 
 interface IUser {
     FIO: string;
@@ -206,7 +192,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
         this.viewListofTask = this.userService.pipe(map(
             data => process(data, this.gridState)));
         this.unSubGetTaskInsp = await this.manService.getTaskInsp(new Date().toLocaleDateString(), '', localStorage.getItem('email')).subscribe(res => {
-            this.viewListofTask['destination']._value = res;
+            // this.viewListofTask['destination']._value = res;
             this.viewListofTask = this.userService.pipe(map(
                 data => process(data, this.gridState)));
         });
@@ -264,34 +250,8 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    public showNewTasks(adr, coord) {
-        this.listItems = [];
-        this.listItems.push({
-            address: adr,
-            coord: {
-                lat: coord[0].toString(),
-                long: coord[1].toString()
-            }
-        });
-        this.getInsp(undefined, null);
-        document.getElementById('btmNewTask').click();
-    }
-
     public closeErrDialog(event) {
         this.errOpen = false;
-    }
-
-    public async createPlacemark(yaMap) {
-        // yaMap.geoObjects.removeAll();
-        // const centrePlacemark = new ymaps.Placemark([55.784390, 49.120760], {balloonContent: 'Главный офис'}, {
-        //     iconColor: 'red'
-        // });
-        // yaMap.geoObjects.add(centrePlacemark);
-        // for (const task of this.viewListofTask['destination']._value) {
-        //     await yaMap.geoObjects.add(new ymaps.Placemark([parseFloat(task.LAT), parseFloat(task.LAN)], {balloonContent: ''}, {
-        //         iconColor: '#0095b6'
-        //     }));
-        // }
     }
 
     public indexClickHandler({sender, rowIndex, columnIndex, dataItem, isEdited}) {
@@ -327,7 +287,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
             this.viewListofTask = await this.manService.pipe(map(
                 data => process(data, this.gridState)));
             await this.manService.getTaskInsp(this.mainDatePic.toLocaleDateString(), '', localStorage.getItem('email')).subscribe(res => {
-                this.viewListofTask['destination']._value = res;
+                // this.viewListofTask['destination']._value = res;
                 this.setRoutes();
                 this.viewListofTask = this.manService.pipe(map(
                     data => process(data, this.gridState)));
@@ -350,7 +310,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
             this.viewListofTask = await this.manService.pipe(map(
                 data => process(data, this.gridState)));
             await this.manService.getTaskInsp(this.mainDatePic.toLocaleDateString(), this.selectUsers[0].toString(), localStorage.getItem('email')).subscribe(res => {
-                this.viewListofTask['destination']._value = res;
+                // this.viewListofTask['destination']._value = res;
                 this.setRoutes();
                 this.viewListofTask = this.manService.pipe(map(
                     data => process(data, this.gridState)));
@@ -373,7 +333,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
                 data => process(data, this.gridState)));
             await this.manService.getTaskInsp(this.mainDatePic.toLocaleDateString(), '', localStorage.getItem('email')).subscribe(res => {
 
-                this.viewListofTask['destination']._value = res;
+                // this.viewListofTask['destination']._value = res;
                 this.viewListofTask = this.manService.pipe(map(
                     data => process(data, this.gridState)));
                 // for (const item of res) {
@@ -410,11 +370,11 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
                     routingMode: 'pedestrian'
                 }
             };
-            for (const item of this.viewListofTask['destination']._value) {
-                if (item.ID_INSPECTOR === this.selectUsers[0] && item.ADR_YA !== null && item.LAN !== null && item.LAT !== null) {
-                    routesArr.referencePoints.push([parseFloat(item.LAT), parseFloat(item.LAN)]);
-                }
-            }
+            // for (const item of this.viewListofTask['destination']._value) {
+            //     if (item.ID_INSPECTOR === this.selectUsers[0] && item.ADR_YA !== null && item.LAN !== null && item.LAT !== null) {
+            //         routesArr.referencePoints.push([parseFloat(item.LAT), parseFloat(item.LAN)]);
+            //     }
+            // }
             this.onSelectUser.emit(routesArr);
         } else {
             this.onSelectUser.emit(undefined);
@@ -450,15 +410,6 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
     public comboChange(): void {
         this.disabled = !(this.selectedItem !== undefined && this.selectedStatus !== undefined && this.selectedInsp
             !== null && this.selectedInsp !== undefined && this.datePic !== null && this.timePic !== null);
-    }
-
-
-    public resetPointOfPoints() {
-        this.points = [];
-        for (const task of this.view['destination']._value) {
-            this.points.push(new Point(task.lat, task.long));
-        }
-        this.changeDetectorRef.detectChanges();
     }
 
 
@@ -745,7 +696,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
             this.viewListofTask = await this.manService.pipe(map(
                 data => process(data, this.gridState)));
             await this.manService.getTaskInsp(this.mainDatePic.toLocaleDateString(), this.selectUsers[0].toString(), localStorage.getItem('email')).subscribe(res => {
-                this.viewListofTask['destination']._value = res;
+                // this.viewListofTask['destination']._value = res;
                 this.viewListofTask = this.manService.pipe(map(
                     data => process(data, this.gridState)));
             });
@@ -771,7 +722,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
             this.viewListofTask = await this.manService.pipe(map(
                 data => process(data, this.gridState)));
             await this.manService.getTaskInsp(this.mainDatePic.toLocaleDateString(), this.selectUsers[0].toString(), localStorage.getItem('email')).subscribe(res => {
-                this.viewListofTask['destination']._value = res;
+                // this.viewListofTask['destination']._value = res;
                 this.viewListofTask = this.manService.pipe(map(
                     data => process(data, this.gridState)));
             });
@@ -779,7 +730,7 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
             this.viewListofTask = await this.manService.pipe(map(
                 data => process(data, this.gridState)));
             await this.manService.getTaskInsp(this.mainDatePic.toLocaleDateString(), '', localStorage.getItem('email')).subscribe(res => {
-                this.viewListofTask['destination']._value = res;
+                // this.viewListofTask['destination']._value = res;
                 this.viewListofTask = this.manService.pipe(map(
                     data => process(data, this.gridState)));
             });
@@ -790,40 +741,30 @@ export class ManTasksPageComponent implements OnInit, OnDestroy {
         this.sendTaskSuccessful = false;
     }
 
-    public async sendTask(event, dataItem) {
-        if (dataItem['destination']._value[0] !== undefined) {
-            this.sendTaskDate = dataItem['destination']._value[0].TTIME.split('T')[0].split('-')[2] +
-                '.' + dataItem['destination']._value[0].TTIME.split('T')[0].split('-')[1] + '.' +
-                dataItem['destination']._value[0].TTIME.split('T')[0].split('-')[0];
-            this.sendTaskInspector = dataItem['destination']._value[0].ID_INSPECTOR.toString();
-            // this.unSubCheckMarshrut = this.manService.checkMarshrut(this.sendTaskDate, this.sendTaskInspector).subscribe(async res => {
-            //    else {
-            await this.manService.sendTask(this.sendTaskDate, this.sendTaskInspector).subscribe(res => {
-                if (res['outBinds'].status === 0) {
-                    this.countSendTask = res['outBinds'].po_cnt_sended_task;
-                    this.sendTaskSuccessful = true;
-                }
-                if (res['outBinds'].status !== 0) {
-                    this.openErrorSend = true;
-                    this.textErrSend = res['outBinds'].errmsg;
-                    this.countSendTask = res['outBinds'].po_cnt_sended_task;
-                }
-            });
-            await this.setFilterTask();
-            // }
-            // });
-        }
-    }
-
-    public closeFiles(status) {
-        this.nullFiles = false;
-        this.openFilesDialog = false;
-    }
-
-    public async confirmSendTask(event) {
-        await this.manService.sendTask(this.sendTaskDate, this.sendTaskInspector);
-        await this.setFilterTask();
-    }
+    // public async sendTask(event, dataItem) {
+    //     if (dataItem['destination']._value[0] !== undefined) {
+    //         this.sendTaskDate = dataItem['destination']._value[0].TTIME.split('T')[0].split('-')[2] +
+    //             '.' + dataItem['destination']._value[0].TTIME.split('T')[0].split('-')[1] + '.' +
+    //             dataItem['destination']._value[0].TTIME.split('T')[0].split('-')[0];
+    //         this.sendTaskInspector = dataItem['destination']._value[0].ID_INSPECTOR.toString();
+    //         // this.unSubCheckMarshrut = this.manService.checkMarshrut(this.sendTaskDate, this.sendTaskInspector).subscribe(async res => {
+    //         //    else {
+    //         await this.manService.sendTask(this.sendTaskDate, this.sendTaskInspector).subscribe(res => {
+    //             if (res['outBinds'].status === 0) {
+    //                 this.countSendTask = res['outBinds'].po_cnt_sended_task;
+    //                 this.sendTaskSuccessful = true;
+    //             }
+    //             if (res['outBinds'].status !== 0) {
+    //                 this.openErrorSend = true;
+    //                 this.textErrSend = res['outBinds'].errmsg;
+    //                 this.countSendTask = res['outBinds'].po_cnt_sended_task;
+    //             }
+    //         });
+    //         await this.setFilterTask();
+    //         // }
+    //         // });
+    //     }
+    // }
 
     public closeDelete(event) {
         this.delete = false;

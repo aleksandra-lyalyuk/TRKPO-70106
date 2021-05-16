@@ -1,15 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {map, tap} from 'rxjs/operators';
-import {process} from '@progress/kendo-data-query';
 import {ManService} from '../../../data/services/man.service';
-import {RowClassArgs} from '@progress/kendo-angular-grid';
-
-interface IFile {
-    name: string;
-    id: number;
-    signed: number;
-    paper: number;
-}
+import {IFile} from './i-file';
 
 @Component({
     selector: 'app-man-files-dlg',
@@ -33,7 +25,7 @@ export class ManFilesDlgComponent implements OnInit {
 
     public uploadFile(files: FileList) {
         const fileToUpload = files.item(0);
-        this.manService.uploadFile(this.idTask.toString(), 0, 0, fileToUpload).subscribe(res => {
+        this.manService.uploadFile(this.idTask.toString(), 0, 0, fileToUpload).subscribe(() => {
             this.getNameFiles(null);
         });
         // this.signedFile = false;
@@ -41,7 +33,7 @@ export class ManFilesDlgComponent implements OnInit {
 
     public uploadPaper(files: FileList) {
         const fileToUpload = files.item(0);
-        this.manService.uploadFile(this.idTask.toString(), 0, 1, fileToUpload).subscribe(res => {
+        this.manService.uploadFile(this.idTask.toString(), 0, 1, fileToUpload).subscribe(() => {
             this.getNameFiles(null);
         });
         this.signedAct = false;
@@ -49,7 +41,7 @@ export class ManFilesDlgComponent implements OnInit {
 
     public uploadPaperSigned(files: FileList) {
         const fileToUpload = files.item(0);
-        this.manService.uploadFile(this.idTask.toString(), 1, 1, fileToUpload).subscribe(res => {
+        this.manService.uploadFile(this.idTask.toString(), 1, 1, fileToUpload).subscribe(() => {
             this.getNameFiles(null);
         });
         this.signedAct = false;
