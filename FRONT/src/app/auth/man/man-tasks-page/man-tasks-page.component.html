@@ -5,7 +5,7 @@
                            [EditItem]="openedChangeDataItem"
                            (close)="closeChange($event)"
     ></app-man-task-page-dlg>
-    <app-errormsg-component *ngIf="errOpen"
+    <app-errormsg-component id="errorMsg" *ngIf="errOpen"
                             [EditItem]="errMsg"
                             (close)="closeErrDialog($event)"
     ></app-errormsg-component>
@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-4">
                     <form class="k-form" [formGroup]="registerForm">
-                        <kendo-grid [data]="viewListofTask | async"
+                        <kendo-grid id="kendoGrid" [data]="viewListofTask | async"
                                     style="height: 78.6vh; padding-left: 0px; padding-right: 0px; border-style: none"
                                     (cellClick)="indexClickHandler($event)"
                                     (cellClose)="indexCloseHandler($event)"

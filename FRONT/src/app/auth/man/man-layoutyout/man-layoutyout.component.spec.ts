@@ -15,16 +15,16 @@ describe('ManLayoutyoutComponent', () => {
       declarations: [ ManLayoutyoutComponent ],
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+    .compileComponents().then(() => {
+      fixture = TestBed.createComponent(ManLayoutyoutComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ManLayoutyoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  it('should create', () => {
+    expect(component).toBeDefined();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+
 });
