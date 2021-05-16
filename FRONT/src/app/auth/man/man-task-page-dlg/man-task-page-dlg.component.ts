@@ -187,7 +187,7 @@ export class ManTaskPageDlgComponent implements OnInit, OnDestroy {
     public selectedStatus: any;
     public openQuestionSaveChange = false;
     public disabled = true;
-    private openedChangeDataItem: any;
+    public openedChangeDataItem: any;
     public openFilesDialog = false;
     public nullFiles = false;
     public prim: any;

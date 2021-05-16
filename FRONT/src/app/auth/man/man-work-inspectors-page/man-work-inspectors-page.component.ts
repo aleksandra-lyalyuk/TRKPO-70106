@@ -79,7 +79,7 @@ export class ManWorkInspectorsPageComponent implements OnInit {
         this.view = this.manService.pipe(map(
             data => process(data, this.gridState)));
         await this.manService.getHistory(this.dateS.toLocaleDateString(), this.datePo.toLocaleDateString(), '', '', '', '', '', '').subscribe(res => {
-            this.view['destination']._value = res;
+            // this.view['destination']._value = res;
             this.view = this.manService.pipe(map(
                 data => process(data, this.gridState)));
         });
@@ -148,7 +148,7 @@ export class ManWorkInspectorsPageComponent implements OnInit {
             insp = '';
         }
         this.manService.getHistory(this.dateS.toLocaleDateString(), this.datePo.toLocaleDateString(), koddog, kodobj, kodp, insp, '', '').subscribe(res => {
-            this.view['destination']._value = res;
+            // this.view['destination']._value = res;
             this.view = this.manService.pipe(map(
                 data => process(data, this.gridState)));
         });
