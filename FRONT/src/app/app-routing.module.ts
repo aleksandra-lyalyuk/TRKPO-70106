@@ -4,7 +4,6 @@ import {LoginPageComponent} from './auth/login-page/login-page.component';
 import {SiteLayoutComponent} from './auth/site-layout/site-layout.component';
 import {AuthGuard} from './shared/classes/auth.guard';
 
-import {AdmMobDevicesPageComponent} from './auth/admin/adm-mob-devices-page/adm-mob-devices-page.component';
 import {ManTasksPageComponent} from './auth/man/man-tasks-page/man-tasks-page.component';
 import {ManWorkInspectorsPageComponent} from './auth/man/man-work-inspectors-page/man-work-inspectors-page.component';
 import {ManAggregatedReportsPageComponent} from './auth/man/man-aggregated-reports-page/man-aggregated-reports-page.component';
@@ -31,7 +30,6 @@ const routes: Routes = [
       ,
       {
         path: 'admin', canActivate: [AuthGuard], component: AdminLayoutComponent, children: [
-          {path: 'adm_devices', canActivate: [AuthGuard], component: AdmMobDevicesPageComponent},
           {path: 'adm_users', canActivate: [AuthGuard], component: AdmUsersPageComponent},
           {path: 'adm_events_list', canActivate: [AuthGuard], component: AdminEventsListPageComponent}
         ]

@@ -14,7 +14,6 @@ import {InputsModule} from '@progress/kendo-angular-inputs';
 import {LayoutModule} from '@progress/kendo-angular-layout';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AdmUsersPageComponent} from './auth/admin/adm-users-page/adm-users-page.component';
-import {AdmMobDevicesPageComponent} from './auth/admin/adm-mob-devices-page/adm-mob-devices-page.component';
 import {SiteLayoutComponent} from './auth/site-layout/site-layout.component';
 import {MenuModule} from '@progress/kendo-angular-menu';
 import {ButtonsModule} from '@progress/kendo-angular-buttons';
@@ -59,7 +58,6 @@ const routes: Routes = [
         LoginPageComponent,
         AdmUsersPageComponent,
         AdmSelfPageComponent,
-        AdmMobDevicesPageComponent,
         SiteLayoutComponent,
         ManTasksPageComponent,
         ManWorkInspectorsPageComponent,
