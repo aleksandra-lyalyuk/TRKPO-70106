@@ -43,9 +43,9 @@ export class ManService extends BehaviorSubject<any[]> {
                         if (tokenResult.token === undefined) {
                             this.authService.logout();
                             this.authService.setTokenInternal(null);
-                            window.location.reload();
+                            // window.location.reload();
                         } else {
-                            window.location.reload();
+                            // window.location.reload();
                         }
                     });
                 }

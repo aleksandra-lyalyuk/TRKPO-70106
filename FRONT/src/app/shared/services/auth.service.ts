@@ -17,7 +17,7 @@ export class AuthService {
 
     email = '';
 
-    private token: string;
+    token: string;
     roles = [];
 
     setTokenInternal(token: string) {
@@ -75,7 +75,7 @@ export class AuthService {
         return false;
     }
 
-    private generateKeyPair() {
+    generateKeyPair() {
         const keys = forge.pki.rsa.generateKeyPair({bits: 1024, e: 0x10001});
         const clientPubKeyStr = forge.pki.publicKeyToPem(keys.publicKey);
         const clientPrvKeyStr = forge.pki.privateKeyToPem(keys.privateKey);
@@ -83,7 +83,7 @@ export class AuthService {
         localStorage.setItem('clientPrvKeyStr', clientPrvKeyStr);
     }
 
-    private storeServerKey(data: any) {
+    storeServerKey(data: any) {
         if (data !== undefined) {
             if (data.data !== undefined) {
                 if (data.data.server_key !== undefined) {
@@ -93,7 +93,7 @@ export class AuthService {
         }
     }
 
-    private storeTicketForTicket(data: any) {
+    storeTicketForTicket(data: any) {
         if (data !== undefined) {
             if (data.data !== undefined) {
                 if (data.data.server_key !== undefined) {
@@ -104,11 +104,11 @@ export class AuthService {
     }
 
     // tslint:disable-next-line:variable-name
-    private storeTicketForToken(ticket_for_token: any) {
+    storeTicketForToken(ticket_for_token: any) {
         localStorage.setItem('ticket_for_token', ticket_for_token);
     }
 
-    private storeToken(token) {
+    storeToken(token) {
         localStorage.setItem('token', token);
         // localStorage.setItem('email', this.email);
     }
