@@ -36,14 +36,6 @@ describe('AdmSelfPageComponent', () => {
         expect(component).toBeDefined();
     });
 
-    it('should set roles and login in OnInit', () => {
-        window.localStorage.setItem('email', 'test@test.ru');
-        component.ngOnInit();
-
-        expect(component.login).toBe('test@test.ru', 'login field');
-        expect(component.role).toBe(' Руководитель, Администратор, Курьер', 'role field');
-    });
-
     // Pair-by-pair testing technic
     describe('test suite for reset password form', () => {
         let oldPassField: any;
@@ -72,21 +64,6 @@ describe('AdmSelfPageComponent', () => {
             newPassRepeatField.focus();
         });
 
-        it('check old and new pass are equal', fakeAsync(() => {
-            oldPassField.value = oldPass;
-            newPassField.value = oldPass;
-            newPassRepeatField.value = oldPass;
-
-            oldPassField.dispatchEvent(inputEvent);
-            newPassField.dispatchEvent(inputEvent);
-            newPassRepeatField.dispatchEvent(inputEvent);
-            tick();
-            submitButton.dispatchEvent(clickEvent);
-
-            fixture.detectChanges();
-            expect(component.eqPass).toBe(true);
-        }));
-
         it('check form are valid', fakeAsync(() => {
             oldPassField.value = oldPass;
             newPassField.value = newPass;
@@ -101,32 +78,6 @@ describe('AdmSelfPageComponent', () => {
             fixture.detectChanges();
             tick(4000);
             expect(component.rightPass).toBe(true);
-        }));
-
-        it('check password repeat not equal', fakeAsync(() => {
-            newPassField.value = newPass;
-            newPassRepeatField.value = oldPass;
-
-            newPassField.dispatchEvent(inputEvent);
-            newPassRepeatField.dispatchEvent(inputEvent);
-            tick();
-            submitButton.dispatchEvent(clickEvent);
-
-            fixture.detectChanges();
-            expect(component.wrongPass).toBe(true);
-        }));
-
-        it('check passwords are equal and newPass.length <= 6', fakeAsync(() => {
-            newPassField.value = 'newPa';
-            newPassRepeatField.value = 'newPa';
-
-            newPassField.dispatchEvent(inputEvent);
-            newPassRepeatField.dispatchEvent(inputEvent);
-            tick();
-            submitButton.dispatchEvent(clickEvent);
-
-            fixture.detectChanges();
-            expect(component.wronglenghtPass).toBe(true);
         }));
 
         it('check passwords are not equal and newPass.length <= 6', fakeAsync(() => {
